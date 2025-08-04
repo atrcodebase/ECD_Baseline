@@ -40,7 +40,7 @@ kobo_tool = read_xlsx_sheets(kobo_tools_path$Caregiver_tool)
 
 
 # read the relevancy files
-relevancy_file = read_xlsx_sheets(relevancy_files_path$Caregiver_tool)
+# relevancy_file = read_xlsx_sheets(relevancy_files_path$Caregiver_tool)
 
 
 # Read QA log from Google sheet ------------------------------------------------
