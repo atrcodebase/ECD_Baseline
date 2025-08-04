@@ -23,7 +23,7 @@ output_data_path = "output/"
 
 raw_data_path = list.files("input/raw_data/", full.names = T) %>% .[!grepl("/\\~\\$", .)] |> as.list() %>% setNames("Caregiver_tool")
 kobo_tools_path = list.files("input/tool/", full.names = T) %>% .[!grepl("/\\~\\$", .)] |> as.list() %>% setNames("Caregiver_tool")
-relevancy_files_path = list.files("input/relevancy_file/", full.names = T) %>% .[!grepl("/\\~\\$", .)] |> as.list() %>% setNames("Caregiver_tool")
+# relevancy_files_path = list.files("input/relevancy_file/", full.names = T) %>% .[!grepl("/\\~\\$", .)] |> as.list() %>% setNames("Caregiver_tool")
 meta_cols <- c("Site_Visit_ID","Province", "District","Region")
 # meta_cols.qa_sheet <- c(Visit_ID = "Site_Visit_ID", "School Code", "Sample_Type", Survey_Date = "SubmissionDate", Region = "Region", "KEY")
 
