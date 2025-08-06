@@ -3,7 +3,14 @@
 write.xlsx(clean_data, paste0(output_data_path, "cleaned_dfs/not sterilized/Clean/ECD_EPL_Baseline_clean_data_", Sys.Date(),".xlsx"))
 
 # Raw not sterilized
-write.xlsx(raw_data, paste0(output_data_path, "cleaned_dfs/not sterilized/Raw/ECD_EPL_Baseline_clean_data_", Sys.Date(),".xlsx"))
+write.xlsx(raw_data, paste0(output_data_path, "cleaned_dfs/not sterilized/Raw/ECD_EPL_Baseline_raw_data_", Sys.Date(),".xlsx"))
+
+
+# Clean sterilized
+write.xlsx(clean_data_client, paste0(output_data_path, "cleaned_dfs/sterilized/Clean/ECD_EPL_Baseline_clean_data_", Sys.Date(),".xlsx"))
+
+# Raw sterilized
+write.xlsx(raw_data_client, paste0(output_data_path, "cleaned_dfs/sterilized/Raw/ECD_EPL_Baseline_raw_data_", Sys.Date(),".xlsx"))
 
 
 # Export other outputs ---------------------------------------------------------
@@ -31,9 +38,9 @@ if (nrow(wrong_choices_result) > 0){
   write.xlsx(wrong_choices_result, paste0(output_data_path, "issues/wrong_choices/wrong_choices_result_", Sys.Date(),".xlsx"))
 }
 
-# if (nrow(missing_translations) > 0){
-#   write.xlsx(missing_translations, paste0(output_data_path, "issues/translation_missing/missing_translations_", Sys.Date(),".xlsx"))
-# }
+if (nrow(missing_translations) > 0){
+  write.xlsx(missing_translations, paste0(output_data_path, "issues/translation_missing/missing_translations_", Sys.Date(),".xlsx"))
+}
 
 if (nrow(Logic_check_result) > 0){
    write.xlsx(Logic_check_result, paste0(output_data_path, "issues/logic_checks/logic_checks_", Sys.Date(),".xlsx"))
