@@ -70,7 +70,7 @@ correction_log_ready <- correction_log_ready %>%
     ) 
   )
 # Clone Sheets for log apply verification -------------------------------------
-clean_data <- raw_data
+# clean_data <- raw_data
 
 # Apply logs -------------------------------------------------------------------
 # Tool 0
