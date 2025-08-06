@@ -68,9 +68,11 @@ correction_log <- correction_log %>%
   # Exclude if Unique_key, question, new value, and old value combo is NA
   filter(!((is.na(KEY_Unique)|KEY_Unique %in% c("", " ")) & is.na(Question)))
 
+detach("package:dplyr", unload=TRUE)
+library(dplyr)
 
 # Align correction log's variables and tool names
-correction_log <- correction_log %>% 
+correction_log <- correction_log %>%
   mutate(across(everything(), as.character)) |> 
   rename(
     key = "KEY",
@@ -107,25 +109,68 @@ length(approved_keys) == length(which(qa_sheet$qa_status == "APPROVED"))
 deleted_keys = deletion_log %>% filter(!is.na(KEY_Unique)) |> pull(KEY_Unique) %>% unique()
 
 
-# Detailed Check log -----------------------------------------------------------
+# Translation log -----------------------------------------------------------
 # detailed_check_log <- read_sheet(qa_sheet_url_ps, sheet = "Detailed_Check")
 
 # photo_status <- detailed_check_log %>% 
   # filter(Check_Type %in% c("image", "text") & !is.na(Check_Status)) %>% # `QA Status` == "Approved"
   # filter(!(Check_Status == "Verified" & Check_Type == "text"))
 
+translation_log <- read_sheet(qa_sheet_url_ps, sheet = "Translation_Log")
+
+translation_log <- translation_log %>% 
+  mutate(
+    New_Value = as.character(New_Value),
+    New_Value = case_when(
+      is.null(New_Value) | New_Value == "NULL" ~ NA_character_,
+      TRUE ~ New_Value
+    ),
+    Old_Value = as.character(Old_Value),
+    Old_Value = case_when(
+      is.null(Old_Value) | Old_Value == "NULL" ~ NA_character_,
+      TRUE ~ Old_Value
+    )
+  ) %>% 
+  # Exclude if Unique_key, question, new value, and old value combo is NA
+  filter(!((is.na(KEY_Unique)|KEY_Unique %in% c("", " ")) & is.na(Question)))
+
+# Align correction log's variables and tool names
+translation_log <- translation_log %>%
+  mutate(across(everything(), as.character)) |> 
+  rename(
+    key = "KEY",
+    KEY = "KEY_Unique",
+    question = "Question",
+    new_value = "New_Value",
+    old_value = "Old_Value",
+    tool = "Tool"
+  )
 
 # Apply Photo status log -------------------------------------------------------
-# if(nrow(photo_status) > 0){ source("R/update_photo_status.R") }
+if(nrow(translation_log) > 0) { source("R/apply_translation_log.R") }
 
 
 # Apply correction log ---------------------------------------------------------
 if(nrow(correction_log) > 0) { source("R/apply_correction_log.R") }
 
-
 # Remove the rejected and pilot interviews -------------------------------------
 source("R/remove_rejected_interviews.R")
 
+# week1_data <- read_sheet(qa_sheet_url_ps, sheet = "Final_dataset_Keys")
+# 
+# # Filter only first week's data - 26 July to 2 August
+# clean_data$data <- clean_data$data %>%
+#   filter(KEY %in% week1_data$uuids_approved_data)
+# 
+# clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>% 
+#   filter(PARENT_KEY %in% clean_data$data$KEY)
+
+# raw data
+# raw_data$data <- raw_data$data %>% 
+#   filter(KEY %in% week1_data$uuids_raw_data_complete_tryouts)
+# 
+# raw_data$rpt_bio_children <- raw_data$rpt_bio_children %>% 
+#   filter(PARENT_KEY %in% raw_data$data$KEY)
 
 # Merge meta data from main sheet to repeating groups --------------------------
 source("R/main_sheet_to_repeat_sheets.R")
@@ -140,7 +185,7 @@ source("R/check_repeat_sheet_counts.R")
 
 
 # missing translations (for QA)-------------------------------------------------
-# source("R/create_translation_log.R")
+source("R/create_translation_log.R")
 
 
 # missing qa (for QA)-----------------------------------------------------------
@@ -184,7 +229,7 @@ source("R/logical_checks.R")
 
 
 # remove extra columns  --------------------------------------------------------
-# source("R/remove_extra_columns.R")
+source("R/remove_extra_columns.R")
 
 
 # attach labels to calculates cols ---------------------------------------------
@@ -194,6 +239,15 @@ source("R/logical_checks.R")
 # change 7777, 8888, 9999 to Labels  -------------------------------------------
 # source("R/recode_to_na.R")
 
+# Convert date
+clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>% 
+  mutate(
+    child_date = format(as.Date(child_date), "%m-%d-%Y")
+    # child_date = case_when(
+    #   !is.na(child_date) ~ as.character(format(as.Date(child_date), "%-m/%-d/%Y")),
+    #   TRUE ~ child_date
+    # )
+  )
 
 # export data sets and issues --------------------------------------------- DONE
 source("R/export_outputs.R")
