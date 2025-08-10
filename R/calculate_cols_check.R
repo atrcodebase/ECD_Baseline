@@ -6,14 +6,14 @@ clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
   mutate(
     child_years_calc.re_calc = case_when(
       # child_age_date_est == "Yes, enter exact birth date" ~ as.integer(round(((as.Date(Starttime) - as.Date(child_date)) / 365.25),0)),
-      child_age_date_est == "Yes, enter exact birth date" ~ as.integer(round(((as.Date(SubmissionDate) - as.Date(child_date)) / 365.25),0)),
+      child_age_date_est %in% c("1",1) ~ as.integer(round(((as.Date(Starttime) - as.Date(child_date)) / 365.25),0)),
       TRUE ~ child_age_est_years
     ),
     
     child_age_est_years_mult_12 = child_age_est_years * 12,
     child_months_calc.re_calc = case_when(
       # child_age_date_est == "Yes, enter exact birth date" ~ as.integer(round(((as.Date(Starttime) - as.Date(child_date)) / 30.43),0)),
-      child_age_date_est == "Yes, enter exact birth date" ~ as.integer(round(((as.Date(SubmissionDate) - as.Date(child_date)) / 30.43),0)),
+      child_age_date_est %in% c("1",1) ~ as.integer(round(((as.Date(Starttime) - as.Date(child_date)) / 30.43),0)),
       TRUE ~ rowSums(cbind(child_age_est_years_mult_12, child_age_est_months))
     ),
     
@@ -21,18 +21,18 @@ clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
     
   )
 
-# clean_data$data <- clean_data$data %>% 
-#   left_join(
-#     clean_data$rpt_bio_children %>% 
-#       filter(
-#         child_months_calc.re_calc >= 24 & child_months_calc.re_calc < 84) %>% 
-#       group_by(KEY = PARENT_KEY) %>% 
-#       summarise(
-#         eldest_child_age.re_calc = max(child_months_calc.re_calc, na.rm = T)
-#         ), by = "KEY") %>% 
-#   mutate(
-#     eldest_child_age_yrs.re_calc = round(eldest_child_age.re_calc/12, 0)
-#   )
+clean_data$data <- clean_data$data %>%
+  left_join(
+    clean_data$rpt_bio_children %>%
+      filter(
+        child_months_calc.re_calc >= 24 & child_months_calc.re_calc < 84) %>%
+      group_by(KEY = PARENT_KEY) %>%
+      summarise(
+        eldest_child_age.re_calc = max(child_months_calc.re_calc, na.rm = T)
+        ), by = "KEY") %>%
+  mutate(
+    eldest_child_age_yrs.re_calc = round(eldest_child_age.re_calc/12, 0)
+  )
 
 
 # compare the calculated values before and after logs replaced ----------------
