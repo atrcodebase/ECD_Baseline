@@ -120,11 +120,4 @@ correction_log_discrep <- rbind(
 )
 
 # Removing extra objects -------------------------------------------------------
-rm(list = c("correction_log_issues_ps", "correction_log_issues_cbe",
-            "correction_log_ready_ps", "correction_log_ready_cbe", 
-            "tool_name", "form_names_ps", "form_names_cbe", "check_logs_for_df",
-            "clean_data.tool9_compare", "clean_data.tool8_compare",
-            "clean_data.tool7_compare", "clean_data.tool6_compare",
-            "clean_data.tool5_compare","clean_data.tool4_compare",
-            "clean_data.tool3_compare", "clean_data.tool2_compare",
-            "clean_data.tool1_compare", "clean_data.tool1_kdr_compare"))
+rm(list = c("check_logs_for_df"))
