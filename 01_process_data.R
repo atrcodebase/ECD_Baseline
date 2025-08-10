@@ -157,19 +157,18 @@ if(nrow(correction_log) > 0) { source("R/apply_correction_log.R") }
 source("R/remove_rejected_interviews.R")
 
 # week1_data <- read_sheet(qa_sheet_url_ps, sheet = "Final_dataset_Keys")
-# 
-# # Filter only first week's data - 26 July to 2 August
+
+# Filter only first week's data - 26 July to 2 August
 # clean_data$data <- clean_data$data %>%
 #   filter(KEY %in% week1_data$uuids_approved_data)
 # 
-# clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>% 
+# clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
 #   filter(PARENT_KEY %in% clean_data$data$KEY)
-
-# raw data
-# raw_data$data <- raw_data$data %>% 
+# 
+# raw_data$data <- raw_data$data %>%
 #   filter(KEY %in% week1_data$uuids_raw_data_complete_tryouts)
 # 
-# raw_data$rpt_bio_children <- raw_data$rpt_bio_children %>% 
+# raw_data$rpt_bio_children <- raw_data$rpt_bio_children %>%
 #   filter(PARENT_KEY %in% raw_data$data$KEY)
 
 # Merge meta data from main sheet to repeating groups --------------------------
