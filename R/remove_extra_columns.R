@@ -27,7 +27,7 @@ extra_cols_data <- c(
   'Can_We_Callback1',	'Can_We_Callback2',	'Reason_for_not_participating',	'Reason_for_not_participating_Other',	'Can_We_Callback',
   'right_time_callback',	'right_time_callback_1',	'right_time_callback_2',	'right_time_callback_3',	'right_time_callback_4',	'right_time_callback_5',
   'right_time_callback_6',	'right_time_callback_7',	'time_for_callback',	'time_for_callback_1',	'time_for_callback_2',	'time_for_callback_3',
-  'time_for_callback_4', "who_are_other_household_members_9"
+  'time_for_callback_4', "who_are_other_household_members_9", "do_you_have_access_to"
   
 )
 
