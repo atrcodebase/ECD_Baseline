@@ -20,6 +20,11 @@ if (nrow(correction_log_discrep) > 0){
   write.xlsx(correction_log_discrep, paste0(output_data_path, "issues/correction_log_issues/correction_log_issues_", Sys.Date(),".xlsx"))
 }
 
+if (nrow(translation_log_discrep) > 0){
+  
+  write.xlsx(translation_log_discrep, paste0(output_data_path, "issues/translation_log_issues/translation_log_issues_", Sys.Date(),".xlsx"))
+}
+
 if (nrow(repeat_sheet_issues) > 0){
   write.xlsx(repeat_sheet_issues, paste0(output_data_path, "issues/repeat_sheet_issues/repeat_sheet_issues_", Sys.Date(),".xlsx"))
 }
