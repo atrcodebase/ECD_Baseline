@@ -247,6 +247,21 @@ clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
     # )
   )
 
+# Correction log issues only for weekly data
+correction_log_discrep <- correction_log_discrep %>% 
+  mutate(
+    KEY_Unique = str_sub(KEY, 1, 41)
+  ) %>% 
+  relocate(KEY_Unique, .after = KEY) %>% 
+  filter(KEY_Unique %in% clean_data$data$KEY)
+
+translation_log_discrep <- translation_log_discrep %>% 
+  mutate(
+    KEY_Unique = str_sub(KEY, 1, 41)
+  ) %>% 
+  relocate(KEY_Unique, .after = KEY) %>% 
+  filter(KEY_Unique %in% clean_data$data$KEY)
+
 # export data sets and issues --------------------------------------------- DONE
 source("R/export_outputs.R")
 
