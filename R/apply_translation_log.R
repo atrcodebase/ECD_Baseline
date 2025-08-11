@@ -96,5 +96,5 @@ translation_log_discrep <- rbind(
 )
 
 # Removing extra objects -------------------------------------------------------
-rm(list = c("translation_log_issues",
-            "translation_log_ready"))
+# rm(list = c("translation_log_issues",
+#             "translation_log_ready"))
