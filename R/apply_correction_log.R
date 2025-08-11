@@ -103,7 +103,7 @@ for(sheet in names(clean_data)){
 required_cols <- c("KEY", "question", "old_value", "new_value", "Tab_Name")
 correction_log_discrep <- correction_log_discrep |> 
   select(all_of(c(required_cols,"KEY_join"))) |>
-  anti_join(correction_log_ready |>
+  anti_join(bind_rows(correction_log_ready, translation_log_ready) |>
               mutate(KEY_join = paste0(KEY, question, new_value, Tab_Name))
             , by = "KEY_join") |>
   mutate(question = as.character(question)) %>% 
