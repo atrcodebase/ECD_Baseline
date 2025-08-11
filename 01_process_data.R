@@ -165,7 +165,7 @@ clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
   filter(PARENT_KEY %in% clean_data$data$KEY)
 
 raw_data$data <- raw_data$data %>%
-  filter(KEY %in% weekly_data$second_delivery_approved_rejected_data)
+  filter(KEY %in% c(weekly_data$second_delivery_approved_rejected_data, weekly_data$second_delivery_tryouts_26_9))
 
 raw_data$rpt_bio_children <- raw_data$rpt_bio_children %>%
   filter(PARENT_KEY %in% raw_data$data$KEY)
