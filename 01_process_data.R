@@ -158,14 +158,26 @@ source("R/remove_rejected_interviews.R")
 
 weekly_data <- read_sheet(qa_sheet_url_ps, sheet = "Clean_Dataset_Keys")
 
-# Filter only second week's data
+# # Filter only second week's data
+# clean_data$data <- clean_data$data %>%
+#   filter(KEY %in% weekly_data$streamlit_keys_qa_approved)
+# clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
+#   filter(PARENT_KEY %in% clean_data$data$KEY)
+# 
+# raw_data$data <- raw_data$data %>%
+#   filter(KEY %in% c(weekly_data$second_delivery_approved_rejected_data, weekly_data$second_delivery_tryouts_26_9))
+# 
+# raw_data$rpt_bio_children <- raw_data$rpt_bio_children %>%
+#   filter(PARENT_KEY %in% raw_data$data$KEY)
+
+# Filter only Third week's data
 clean_data$data <- clean_data$data %>%
   filter(KEY %in% weekly_data$streamlit_keys_qa_approved)
 clean_data$rpt_bio_children <- clean_data$rpt_bio_children %>%
   filter(PARENT_KEY %in% clean_data$data$KEY)
 
 raw_data$data <- raw_data$data %>%
-  filter(KEY %in% c(weekly_data$second_delivery_approved_rejected_data, weekly_data$second_delivery_tryouts_26_9))
+  filter(KEY %in% c(weekly_data$third_delivery_approved_rejected_data, weekly_data$third_delivery_tryouts_26_16))
 
 raw_data$rpt_bio_children <- raw_data$rpt_bio_children %>%
   filter(PARENT_KEY %in% raw_data$data$KEY)
