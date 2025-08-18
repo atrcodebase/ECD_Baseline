@@ -1676,7 +1676,7 @@ lc_child <- rbind(
   
   # Flagging if child age is not (potentially) aligned with her/his education level
   clean_data$rpt_bio_children %>% 
-    filter(child_years_calc < 6 & current_enrolled_at_any_type_of_education == "Primary school") %>% 
+    filter(child_years_calc < 5 & current_enrolled_at_any_type_of_education == "Primary school") %>% 
     mutate(
       Issue = paste0("The child age is reported ", child_years_calc, " & ", child_months_calc_mod ," and her/his education level is reporte 'Primary' school.Can you please confirm if it!"),
       Question = "current_enrolled_at_any_type_of_education",
@@ -1695,7 +1695,7 @@ lc_child <- rbind(
     ),
   
   clean_data$rpt_bio_children %>% 
-    filter(child_years_calc < 12 & current_enrolled_at_any_type_of_education == "Secondary school") %>% 
+    filter(child_years_calc < 11 & current_enrolled_at_any_type_of_education == "Secondary school") %>% 
     mutate(
       Issue = paste0("The child age is reported ", child_years_calc, " & ", child_months_calc_mod ," and her/his education level is reporte 'Secondary' school.Can you please confirm if it!"),
       Question = "current_enrolled_at_any_type_of_education",
